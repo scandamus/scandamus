@@ -1,0 +1,13 @@
+services:
+  django:
+    build: django
+    container_name: django
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${SCANDAMUS_PATH}:/app
+    tty: true
+
