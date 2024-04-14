@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import pongfunc
+from .views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', pongfunc),
-    path('<path:anything>', pongfunc, name='catchall'),
+    path('', home, name='home'),
+    path('<path:anything>', home, name='catchall'),
 ]

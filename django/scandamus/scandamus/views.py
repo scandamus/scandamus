@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
-def pongfunc(request, *args, **kwargs):
-    return HttpResponse('Pong Game')
+def home(request, *args, **kwargs):
+    return render(request, 'index.html')
