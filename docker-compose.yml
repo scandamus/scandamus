@@ -1,4 +1,13 @@
 services:
+  frontend:
+    build: frontend
+    container_name: frontend
+    ports:
+      - "0.0.0.0:80:80"
+      - 443:443
+    volumes:
+      - ${SCANDAMUS_STATIC_SRCS_PATH}:/var/www/html
+
   django:
     build: django
     container_name: django
@@ -9,5 +18,3 @@ services:
       - "8000:8000"
     volumes:
       - ${SCANDAMUS_PATH}:/app
-    tty: true
-
