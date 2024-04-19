@@ -14,6 +14,9 @@ services:
     environment:
       - SECRET_KEY=${SECRET_KEY}
       - DEBUG=${DEBUG}
+      - SUPABASE_HOST=${SUPABASE_HOST}
+      - SUPABASE_USR=${SUPABASE_USR}
+      - SUPABASE_PW=${SUPABASE_PW}
     ports:
       - "8000:8000"
     volumes:

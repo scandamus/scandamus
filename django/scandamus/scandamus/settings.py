@@ -84,8 +84,12 @@ WSGI_APPLICATION = 'scandamus.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': get_env_var('SUPABASE_USR'),
+        'PASSWORD': get_env_var('SUPABASE_PW'),
+        'HOST': get_env_var('SUPABASE_HOST'),
+        'PORT': 5432
     }
 }
 
