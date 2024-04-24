@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    root /var/www/html;
+    index index.html;
+
+    location / {
+		autoindex on;
+        try_files $uri $uri/ /index.html; #SPAは常にindex.htmlを読みに行く
+    }
+}
