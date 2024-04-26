@@ -9,7 +9,9 @@ import { switchLanguage } from "/js/modules/switchLanguage.js";
 document.addEventListener("DOMContentLoaded", async () => {
     const isLoggedIn = await checkLoginStatus();
     if (!isLoggedIn && checkProtectedRoute(window.location.pathname)) {
-        window.location.pathname = '/';//todo: routing調整
+        window.history.pushState({}, "", "/");
+        router("/");
+        return ;
     }
     //todo: selectedLanguageが未セットならdefault lang
     //const selectedLanguage = localStorage.getItem("selectedLanguage");

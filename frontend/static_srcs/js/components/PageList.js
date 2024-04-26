@@ -12,15 +12,15 @@ export default class extends PageBase {
         return `
             <ul>
                 <li><a href="/" data-link>login</a></li>
+                <li><a href="/register" data-link>user(register)</a></li>
+                <li><a href="/register/confirm" data-link>user(register - confirm)</a></li>
+                <li><a href="/register/complete" data-link>user(register - complete)</a></li>
                 <li><a href="/user" data-link>user</a></li>
-                <li><a href="/user_register" data-link>user(register)</a></li>
-                <li><a href="/user_register_confirm" data-link>user(register - confirm)</a></li>
-                <li><a href="/user_register_complete" data-link>user(register - complete)</a></li>
-                <li><a href="/game_play" data-link>game(play)</a></li>
-                <li><a href="/game_match" data-link>game(match)</a></li>
-                <li><a href="/tournament_entry" data-link>tournament(entry)</a></li>
-                <li><a href="/tournament_entry_input" data-link>tournament(entry-input)</a></li>
-                <li><a href="/tournament_match" data-link>tournament(match)</a></li>
+                <li><a href="/game/play" data-link>game(play)</a></li>
+                <li><a href="/game/match" data-link>game(match)</a></li>
+                <li><a href="/tournament/entry" data-link>tournament(entry)</a></li>
+<!--            <li><a href="/tournament/entry/input" data-link>tournament(entry-input)</a></li>-->
+                <li><a href="/tournament/match" data-link>tournament(match)</a></li>
             </ul>
         `;
     }
