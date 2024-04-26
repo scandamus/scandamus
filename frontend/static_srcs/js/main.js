@@ -1,11 +1,16 @@
 "use strict";
 
 //import
-import { addLinkPageEvClick, router } from "/js/modules/router.js";
+import { checkLoginStatus } from "/js/modules/auth.js";
+import { addLinkPageEvClick, checkProtectedRoute, router } from "/js/modules/router.js";
 import { switchLanguage } from "/js/modules/switchLanguage.js";
 
 //load
 document.addEventListener("DOMContentLoaded", async () => {
+    const isLoggedIn = await checkLoginStatus();
+    if (!isLoggedIn && checkProtectedRoute(window.location.pathname)) {
+        window.location.pathname = '/';//todo: routing調整
+    }
     //todo: selectedLanguageが未セットならdefault lang
     //const selectedLanguage = localStorage.getItem("selectedLanguage");
     try {
