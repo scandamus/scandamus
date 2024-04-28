@@ -72,8 +72,15 @@ const router = async () => {
     }
     const view = new match.route.view(getParams(match));
     document.querySelector("#app").innerHTML = await view.getHtml();
+
+    // 各ページコンポーネントがのhtmlがDOMに追加された後にjsが実行->ゲーム読み込み
+    if (view.afterRender) {
+        await view.afterRender();
+    }
+
     const linkPages = document.querySelectorAll('#app a[data-link]');
     addLinkPageEvClick(linkPages);
+
 };
 
 export { addLinkPageEvClick, router };
