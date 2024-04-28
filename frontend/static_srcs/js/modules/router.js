@@ -34,8 +34,11 @@ const protectedRoutes = [/\/(?:user|game|tournament)\/?.*$/];
 const pathToRegex = (path) => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 //:idのような形式の場合
 const getParams = (match) => {
+    if (!match || !match.route || !match.route.path) {
+    return {};
+    }
     const values = match.result.slice(1);
-    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
+    const keys = Array.from(match.route.path.match(/:(\w+)/g) || []).map(result => result.slice(1));
 
     return Object.fromEntries(keys.map((key, i) => {
         return [key, values[i]];
@@ -62,6 +65,15 @@ const addLinkPageEvClick = (linkPages) => {
 //認証の必要なページかチェック
 const checkProtectedRoute = (path) => {
     return (protectedRoutes.some(route => route.test(path)));
+}
+
+const isConstructor = (value) => {
+  try {
+    new value();
+  } catch {
+    return false;
+  }
+  return true;
 }
 
 const router = async (path) => {
@@ -91,10 +103,12 @@ const router = async (path) => {
     }
 
     console.log(match.route + " " + match.result + " " + location.pathname)
-    const view = new match.route.view(getParams(match));
-    document.querySelector("#app").innerHTML = await view.getHtml();
-    const linkPages = document.querySelectorAll('#app a[data-link]');
-    addLinkPageEvClick(linkPages);
+    const view = isConstructor(match.route.view) ? new match.route.view(getParams(match)) : null;
+    if (view) {
+        document.querySelector("#app").innerHTML = await view.getHtml();
+        const linkPages = document.querySelectorAll('#app a[data-link]');
+        addLinkPageEvClick(linkPages);
+    }
 };
 
 export { addLinkPageEvClick, checkProtectedRoute, router };
