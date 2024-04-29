@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    "players.apps.PlayersConfig"
+    'rest_framework',
+    'players.apps.PlayersConfig'
+    # ↓ 下記のようにapp名のみ指定すると、apps.PlayersConfigを探しに行く。
+    # 'players',
+    # 後方互換性のため残された記述であり、現代ではAppConfigまで明示するのが推奨される
 ]
 
 MIDDLEWARE = [
@@ -65,6 +69,7 @@ ROOT_URLCONF = 'scandamus.urls'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost',
     'http://localhost:80',
+    'http://localhost:5173',
 ]
 
 CORS_ALLOW_METHODS = [
@@ -91,6 +96,18 @@ TEMPLATES = [
         },
     },
 ]
+
+## ブラウザブルAPIレンダリングをOFFにする場合、下記を有効にする
+# TRAILING_SLASH = False
+#
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': [
+#         'rest_framework.renderers.JSONRenderer',
+#         #
+#         # 'rest_framework.renderers.BrowsableAPIRenderer',
+#     ],
+# }
+## ここまで
 
 WSGI_APPLICATION = 'scandamus.wsgi.application'
 

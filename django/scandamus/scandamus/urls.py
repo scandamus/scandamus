@@ -1,31 +1,19 @@
-"""
-URL configuration for scandamus project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import home
-from players.views import PlayersViewSet
 
+# DefaultRouter => ViewSetに基づきRESTful APIのURLを生成
+from rest_framework.routers import DefaultRouter
+from players.views import PlayersViewSet
+# インスタンス生成
 router = DefaultRouter()
+# エンドポイント登録
 router.register(r'players', PlayersViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', home, name='home'),
-    # path('<path:anything>', home, name='catchall'),
-    path('api/', include(router.urls)),
+    # ↓ router.urlsはrouter.register()で登録されたURLパターンリスト
+    path('api/', include(router.urls))
+
+    # DefaultRouterを使わずappのurlpatternsを使う場合、'app.urls'を指定
+    # path('api/app/', include('app.urls'))
 ]
