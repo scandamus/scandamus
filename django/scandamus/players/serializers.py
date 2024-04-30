@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import DataPlayer
+from .models import Player
 
 
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DataPlayer
-        fields = ['id', 'playername', 'created_at']
+        model = Player
+        fields = '__all__'

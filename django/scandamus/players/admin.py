@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import DataPlayer
+from .models import Player
 
-admin.site.register(DataPlayer)
+admin.site.register(Player)

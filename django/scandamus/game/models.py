@@ -1,4 +1,5 @@
 from django.db import models
+from players.models import Player
 
 
 class Tournament(models.Model):
@@ -11,3 +12,43 @@ class Tournament(models.Model):
 
     class Meta:
         verbose_name = 'トーナメント'
+
+
+class Match(models.Model):
+    tournament = models.ForeignKey(
+        'Tournament',
+        on_delete=models.SET_NULL,  # トーナメントが削除された場合、NULLに設定
+        null=True,  # NULLを許可
+        blank=True  # フォームで空白を許可
+    )
+    round = models.IntegerField(
+        null=True,
+        blank=True
+    )
+    player1 = models.ForeignKey(
+        'players.Player',
+        related_name='matches_as_player1',
+        on_delete=models.CASCADE  # プレイヤーが削除された場合、該当するマッチも削除
+    )
+    player2 = models.ForeignKey(
+        'players.Player',
+        related_name='matches_as_player2',
+        on_delete=models.CASCADE
+    )
+    status = models.CharField(
+        max_length=10,
+        choices=[
+            ('before', '対戦前'),
+            ('ongoing', '対戦中'),
+            ('after', '対戦後')
+        ],
+        default='before'
+    )
+    score1 = models.IntegerField(default=0)
+    score2 = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.player1} vs {self.player2} - Round: {self.round} on {self.tournament}"
+
+    class Meta:
+        verbose_name = '対戦'
