@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'players.apps.PlayersConfig'
+    'game.apps.GameConfig'
     # ↓ 下記のようにapp名のみ指定すると、apps.PlayersConfigを探しに行く。
     # 'players',
     # 後方互換性のため残された記述であり、現代ではAppConfigまで明示するのが推奨される

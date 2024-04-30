@@ -16,4 +16,5 @@ urlpatterns = [
 
     # DefaultRouterを使わずappのurlpatternsを使う場合、'app.urls'を指定
     # path('api/app/', include('app.urls'))
+    path('api/game/', include('game.urls')),
 ]
