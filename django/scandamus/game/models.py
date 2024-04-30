@@ -52,3 +52,21 @@ class Match(models.Model):
 
     class Meta:
         verbose_name = '対戦'
+
+
+class Entry(models.Model):
+    tournament = models.ForeignKey(
+        'Tournament',
+        on_delete=models.CASCADE,  # トーナメントが削除された場合、該当するエントリー削除
+    )
+    player = models.ForeignKey(
+        'players.Player',
+        on_delete=models.CASCADE
+    )
+    nickname = models.CharField(max_length=50, verbose_name="ニックネーム")
+
+    def __str__(self):
+        return f"{self.player} as {self.nickname} on {self.tournament}"
+
+    class Meta:
+        verbose_name = 'エントリー'
