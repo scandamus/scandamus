@@ -76,34 +76,23 @@ const isConstructor = (value) => {
   return true;
 }
 
-const router = async (path) => {
-    //todo: route判定分離
-    let match;
-    // path指定ある場合
-    if (typeof path !== 'undefined') {
+const router = async (ev) => {
+    const potentialMatches = routes.map(route => {
+        return {
+            route: route,
+            result: location.pathname.match(pathToRegex(route.path))
+        };
+    });
+    let match = potentialMatches.find(potentialMatch => potentialMatch.result !== null);
+    if (!match) {//404
         match = {
-                route: path,
-                result: [path]
-            };
-    } else {
-        //routesとの一致チェック
-        const potentialMatches = routes.map(route => {
-            return {
-                route: route,
-                result: location.pathname.match(pathToRegex(route.path))
-            };
-        });
-        match = potentialMatches.find(potentialMatch => potentialMatch.result !== null);
-        if (!match) {//404
-            match = {
-                route: routes[0],
-                result: [location.pathname]
-            };
-        }
+            route: routes[0],
+            result: [location.pathname]
+        };
     }
 
-    console.log(match.route + " " + match.result + " " + location.pathname)
-    const view = isConstructor(match.route.view) ? new match.route.view(getParams(match)) : null;
+    //const view = isConstructor(match.route.view) ? new match.route.view(getParams(match)) : null;
+    const view = new match.route.view(getParams(match));
     if (view) {
         document.querySelector("#app").innerHTML = await view.getHtml();
         const linkPages = document.querySelectorAll('#app a[data-link]');

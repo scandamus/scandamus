@@ -7,12 +7,13 @@ import { switchLanguage } from "/js/modules/switchLanguage.js";
 
 //load
 document.addEventListener("DOMContentLoaded", async () => {
-    const isLoggedIn = await checkLoginStatus();
-    if (!isLoggedIn && checkProtectedRoute(window.location.pathname)) {
-        window.history.pushState({}, "", "/");
-        router("/");
-        return ;
-    }
+    checkLoginStatus();
+    //const isLoggedIn = await checkLoginStatus();
+    // if (!isLoggedIn && checkProtectedRoute(window.location.pathname)) {
+    //     window.history.pushState({}, "", "/");
+    //     router("/");
+    //     return ;
+    // }
     //todo: selectedLanguageが未セットならdefault lang
     //const selectedLanguage = localStorage.getItem("selectedLanguage");
     try {
